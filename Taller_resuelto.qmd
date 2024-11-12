@@ -12,7 +12,7 @@ author:
   - Irene Rodríguez
 ---
 
-[Enlace al repositorio de Github](https://github.com/irn91/TALLER_REPASO_AD)
+[Enlace al repositorio de Github](https://github.com/irn91/Taller-Repaso-AD)
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -523,4 +523,6 @@ Para políticas de turismo, proponemos adaptar la oferta a las expecativas de vi
   - Ejercicios resuletos de la Asignatura.
   
   - Documento “Recomendaciones para escribir informes de proyectos en Estadística” del curso.
+  
+  - [Encuesta de Turismo de Residentes del Segundo trimestre 2024](https://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&cid=1254736176990&menu=ultiDatos&idp=1254735576863) del repositorio del INE
   
