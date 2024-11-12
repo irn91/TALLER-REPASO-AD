@@ -77,9 +77,16 @@ window.Quarto = {
   <ul>
   <li><a href="#objetivos" id="toc-objetivos" class="nav-link active" data-scroll-target="#objetivos">Objetivos</a></li>
   <li><a href="#descripción-de-los-datos" id="toc-descripción-de-los-datos" class="nav-link" data-scroll-target="#descripción-de-los-datos">Descripción de los datos</a></li>
-  <li><a href="#análisis-descriptivo-e-interpretación-de-la-variancia" id="toc-análisis-descriptivo-e-interpretación-de-la-variancia" class="nav-link" data-scroll-target="#análisis-descriptivo-e-interpretación-de-la-variancia">Análisis descriptivo e interpretación de la variancia</a></li>
+  <li><a href="#análisis-descriptivo-e-interpretación-de-la-variancia" id="toc-análisis-descriptivo-e-interpretación-de-la-variancia" class="nav-link" data-scroll-target="#análisis-descriptivo-e-interpretación-de-la-variancia">Análisis descriptivo e interpretación de la variancia</a>
+  <ul>
+  <li><a href="#diferencias-por-sexo" id="toc-diferencias-por-sexo" class="nav-link" data-scroll-target="#diferencias-por-sexo">Diferencias por Sexo</a></li>
+  <li><a href="#tiempo-de-transporte-por-sexo" id="toc-tiempo-de-transporte-por-sexo" class="nav-link" data-scroll-target="#tiempo-de-transporte-por-sexo">Tiempo de transporte por Sexo</a></li>
+  <li><a href="#duración-del-viaje-por-sexo-y-rango-de-edad" id="toc-duración-del-viaje-por-sexo-y-rango-de-edad" class="nav-link" data-scroll-target="#duración-del-viaje-por-sexo-y-rango-de-edad">Duración del viaje por Sexo y Rango de edad</a></li>
+  <li><a href="#calificación-del-viaje-por-ingresos-del-hogar" id="toc-calificación-del-viaje-por-ingresos-del-hogar" class="nav-link" data-scroll-target="#calificación-del-viaje-por-ingresos-del-hogar">Calificación del viaje por ingresos del hogar</a></li>
+  <li><a href="#variables-cuantitativas-varianza-generalizada-y-total" id="toc-variables-cuantitativas-varianza-generalizada-y-total" class="nav-link" data-scroll-target="#variables-cuantitativas-varianza-generalizada-y-total">Variables cuantitativas: varianza generalizada y total</a></li>
+  </ul></li>
   <li><a href="#variables-no-cuantitativas-modelo-de-distribución-multinomial" id="toc-variables-no-cuantitativas-modelo-de-distribución-multinomial" class="nav-link" data-scroll-target="#variables-no-cuantitativas-modelo-de-distribución-multinomial">Variables no cuantitativas: Modelo de distribución multinomial</a></li>
-  <li><a href="#cálculo-de-la-probabilidad-de-un-evento-en-una-muestra-de-tamaño-20" id="toc-cálculo-de-la-probabilidad-de-un-evento-en-una-muestra-de-tamaño-20" class="nav-link" data-scroll-target="#cálculo-de-la-probabilidad-de-un-evento-en-una-muestra-de-tamaño-20">Cálculo de la probabilidad de un evento en una muestra de tamaño 20:</a></li>
+  <li><a href="#cálculo-de-la-probabilidad-de-un-evento-en-una-muestra-de-tamaño-20" id="toc-cálculo-de-la-probabilidad-de-un-evento-en-una-muestra-de-tamaño-20" class="nav-link" data-scroll-target="#cálculo-de-la-probabilidad-de-un-evento-en-una-muestra-de-tamaño-20">Cálculo de la probabilidad de un evento en una muestra de tamaño 20</a></li>
   <li><a href="#variables-cuantitativas-modelo-de-regresión-multivariante" id="toc-variables-cuantitativas-modelo-de-regresión-multivariante" class="nav-link" data-scroll-target="#variables-cuantitativas-modelo-de-regresión-multivariante">Variables cuantitativas: Modelo de regresión multivariante</a></li>
   <li><a href="#contraste-de-hipótesis-de-dos-medias-multivariante" id="toc-contraste-de-hipótesis-de-dos-medias-multivariante" class="nav-link" data-scroll-target="#contraste-de-hipótesis-de-dos-medias-multivariante">Contraste de hipótesis de dos medias multivariante</a></li>
   <li><a href="#conclusiones" id="toc-conclusiones" class="nav-link" data-scroll-target="#conclusiones">Conclusiones</a></li>
@@ -125,7 +132,7 @@ window.Quarto = {
 <p>La hipótesis general que deseamos investigar es “El gasto por persona y el tiempo de transporte no varían según el destino del viaje: España o el extranjero”.</p>
 <p>Definimos objetivos específicos para validar o refutar dicha hipótesis.</p>
 <ul>
-<li><p>Breve análisis exploratorio de datos.</p></li>
+<li><p>Análisis exploratorio de los datos.</p></li>
 <li><p>Modelar el destino del viaje por una distribución multinomial.</p></li>
 <li><p>Realizar un modelo de regresión multivariante del gasto por persona en función de la duración del viaje y el tiempo de transporte.</p></li>
 <li><p>Analizar si las medias del gasto por persona y el tiempo de transporte difieren significativamente según el destino del viaje.</p></li>
@@ -133,7 +140,7 @@ window.Quarto = {
 </section>
 <section id="descripción-de-los-datos" class="level3">
 <h3 class="anchored" data-anchor-id="descripción-de-los-datos">Descripción de los datos</h3>
-<p>Consultamos los resultados de la Encuesta de Turismo de Residentes del Segundo trimestre 2024 del repositorio <a href="https://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&amp;cid=1254736176990&amp;menu=ultiDatos&amp;idp=1254735576863">INE</a>.</p>
+<p>Consultamos los resultados de la Encuesta de Turismo de Residentes del Segundo trimestre 2024 del repositorio del <a href="https://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&amp;cid=1254736176990&amp;menu=ultiDatos&amp;idp=1254735576863">INE</a>.</p>
 <p>Algunos resultados de interés:</p>
 <ul>
 <li><p>El número de viajes de los residentes en España en el segundo trimestre es de más de 45 millones, el 68.8% de los residentes viaja.</p></li>
@@ -195,7 +202,7 @@ $ nivel_interes      &lt;ord&gt; Bajo, Bajo, Bajo, Alto, Neutro, Bajo, Neutro, N
 <p>Realicemos un análisis descriptivo multivariantes de la base de datos de acuerdo a los objetivos del trabajo.</p>
 <section id="diferencias-por-sexo" class="level4">
 <h4 class="anchored" data-anchor-id="diferencias-por-sexo">Diferencias por Sexo</h4>
-<p>Veámoslo de froma más clara. Con <code>ggpais</code>, pintemos las variables cuantitativas por sexo.</p>
+<p>Veámoslo de forma más clara. Con <code>ggpais</code>, pintemos las variables cuantitativas por sexo.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -205,12 +212,12 @@ $ nivel_interes      &lt;ord&gt; Bajo, Bajo, Bajo, Alto, Neutro, Bajo, Neutro, N
 </div>
 </div>
 </div>
-<p>En el triangulo inferior de la representación vemos los gráficos de dispersión y en el triangulo superior se indican las correlaciones. Vemos que la correlación positiva entre la duración del viaje y el tiempo de transporte se muestra en su gráfico de dispersión: a mayor duración del viaje mayor tiempo de transporte.</p>
+<p>En el triángulo inferior de la representación vemos los gráficos de dispersión y en el triángulo superior se indican las correlaciones. Vemos que la correlación positiva entre la duración del viaje y el tiempo de transporte se muestra en su gráfico de dispersión: a mayor duración del viaje mayor tiempo de transporte.</p>
 <p>En la diagonal se muestran las distribuciones de cada variable distinguidas por sexo. Vemos una cierta diferencia entre hombres y mujeres en la duración del viaje y tiempo de transporte.</p>
 </section>
 <section id="tiempo-de-transporte-por-sexo" class="level4">
 <h4 class="anchored" data-anchor-id="tiempo-de-transporte-por-sexo">Tiempo de transporte por Sexo</h4>
-<p>Cruzamos la variable cuantitativa <code>tiempo_transporte</code> con la variable categórica <code>sexo</code>. Usamos gráficos de <code>boxplot</code> para visualizar la información.</p>
+<p>Cruzamos la variable cuantitativa Tiempo de transporte con la variable categórica Sexo. Usamos gráficos de <code>boxplot</code> para visualizar la información.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -224,7 +231,7 @@ $ nivel_interes      &lt;ord&gt; Bajo, Bajo, Bajo, Alto, Neutro, Bajo, Neutro, N
 </section>
 <section id="duración-del-viaje-por-sexo-y-rango-de-edad" class="level4">
 <h4 class="anchored" data-anchor-id="duración-del-viaje-por-sexo-y-rango-de-edad">Duración del viaje por Sexo y Rango de edad</h4>
-<p>Ahora, graficamos un gráfico de violín para estudiar la duración del viaje por Sexo y Rango de edad.</p>
+<p>Vemos un gráfico de violín para estudiar la duración del viaje por Sexo y Rango de edad.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -234,7 +241,7 @@ $ nivel_interes      &lt;ord&gt; Bajo, Bajo, Bajo, Alto, Neutro, Bajo, Neutro, N
 </div>
 </div>
 </div>
-<p>La duración del viaje varía con el sexo y el rango de edad: A partir de los 35 años, la mediana de la duración del viaje en noches de los hombres es mayor que la de las mujeres y los viajes más largos corresponden a hombres de mayor edad.</p>
+<p>La duración del viaje varía con el sexo y el rango de edad: a partir de los 35 años, la mediana de la duración del viaje en noches de los hombres es mayor que la de las mujeres y los viajes más largos corresponden a hombres de mayor edad.</p>
 </section>
 <section id="calificación-del-viaje-por-ingresos-del-hogar" class="level4">
 <h4 class="anchored" data-anchor-id="calificación-del-viaje-por-ingresos-del-hogar">Calificación del viaje por ingresos del hogar</h4>
@@ -258,10 +265,8 @@ $ nivel_interes      &lt;ord&gt; Bajo, Bajo, Bajo, Alto, Neutro, Bajo, Neutro, N
 <p>Definición de variación total: <span class="math display">\[Tr(S)= \sum_i^p \lambda_i\]</span></p>
 <p>donde los <span class="math inline">\(\lambda_i\)</span> són los valores propios de la matriz de covarianzas <span class="math inline">\(S\)</span>.</p>
 <p>Obtenemos los valores propios de <span class="math inline">\(S\)</span>.</p>
-<p>La varianza generalizada es 14468.</p>
-<p>de manera que hay mucha variabilidad conjunta.</p>
-<p>Y la variación total es 226.</p>
-<p>Por lo tanto, la suma de las variaciones es de 226.</p>
+<p>La varianza generalizada es 14468. De manera que hay mucha variabilidad conjunta.</p>
+<p>Y la varianza total es 226, es relativamente grande.</p>
 <p>Notemos que la cantidad de variabilidad que hay en el conjunto de datos es considerable.</p>
 </section>
 </section>
@@ -272,13 +277,13 @@ $ nivel_interes      &lt;ord&gt; Bajo, Bajo, Bajo, Alto, Neutro, Bajo, Neutro, N
 <p>De las 100 observaciones:</p>
 <ul>
 <li><p>Solo por España (<code>solo ESP</code>) tiene 65 observaciones: frecuencia relativa <span class="math inline">\(p_1 = 0.65\)</span>.</p></li>
-<li><p>Solo por elextranjero (<code>solo extranjero</code>) tiene 27 observaciones: frecuencia relativa <span class="math inline">\(p_{2} = 0.27\)</span>.</p></li>
-<li><p>Por España y el extranjero (<code>ESP y extranjero</code> tiene 8 observaciones: frecuencia relativa <span class="math inline">\(p_{3} = 0.08\)</span>.</p></li>
+<li><p>Solo por el extranjero (<code>solo extranjero</code>) tiene 27 observaciones: frecuencia relativa <span class="math inline">\(p_{2} = 0.27\)</span>.</p></li>
+<li><p>Por España y el extranjero (<code>ESP y extranjero</code>) tiene 8 observaciones: frecuencia relativa <span class="math inline">\(p_{3} = 0.08\)</span>.</p></li>
 </ul>
 <p>Distribución multinomial de parámetros estimados <span class="math inline">\(p_1 = 0.65\)</span>, <span class="math inline">\(p_{2} = 0.27\)</span> y <span class="math inline">\(p_{3} = 0.08\)</span>.</p>
 </section>
 <section id="cálculo-de-la-probabilidad-de-un-evento-en-una-muestra-de-tamaño-20" class="level3">
-<h3 class="anchored" data-anchor-id="cálculo-de-la-probabilidad-de-un-evento-en-una-muestra-de-tamaño-20">Cálculo de la probabilidad de un evento en una muestra de tamaño 20:</h3>
+<h3 class="anchored" data-anchor-id="cálculo-de-la-probabilidad-de-un-evento-en-una-muestra-de-tamaño-20">Cálculo de la probabilidad de un evento en una muestra de tamaño 20</h3>
 <p>Utilizamos el modelo para calcular la probabilidad de que ocurra un evento de interés en una muestra de tamaño 20, relevante para el problema.</p>
 <p>Interesa saber si la mayoría viaja por España. De una muestra de tamaño 20, queremos calcular la probabilidad de que haya 15 observaciones de <code>solo ESP</code>, 3 de <code>solo extranjero</code> y 2 de <code>ESP y extranjero</code>.</p>
 <p>Como consideramos una distribución multinomial:</p>
@@ -291,8 +296,8 @@ P(X_1 = x_1, X_2 = x_2, X_3 = x_3) = \frac{20!}{x_1! x_2! x_3!} \cdot p_1^{x_1} 
 </section>
 <section id="variables-cuantitativas-modelo-de-regresión-multivariante" class="level3">
 <h3 class="anchored" data-anchor-id="variables-cuantitativas-modelo-de-regresión-multivariante">Variables cuantitativas: Modelo de regresión multivariante</h3>
-<p>Con las variables cuantitativas de tu base de datos, ajusta un modelo de regresión multivariante en la forma:</p>
-<p><span class="math display">\[Y=\beta_0+\beta_1 X_1+ \cdots + \beta_p X_p + \epsilon\]</span> Donde <span class="math inline">\(Y\)</span> es la variable cuantitativa que deseas explicar en función del resto de variables cuantitativas registradas. Además, calcula la función de score e interpreta su resultado en el contexto del problema.</p>
+<p>Con las variables cuantitativas de la base de datos, ajustamos un modelo de regresión multivariante en la forma:</p>
+<p><span class="math display">\[Y=\beta_0+\beta_1 X_1+ \cdots + \beta_p X_p + \epsilon\]</span> Donde <span class="math inline">\(Y\)</span> es la variable cuantitativa que deseamos explicar en función del resto de variables cuantitativas registradas. Además, calculamos la función de score e interpretamos su resultado en el contexto del problema.</p>
 <p>Vamos a modelar <code>gasto_persona</code> como función de las demás variables cuantitativas: <code>tiempo_transporte</code>, <code>duracion_viaje</code> y <code>calificacion_viaje</code>.</p>
 <p>Usamos <code>lm</code> para ajustar el modelo de regresión múltiple, que es una forma de regresión multivariante. Es de la forma:</p>
 <p>gasto_persona = <span class="math inline">\(\beta_0 + \beta_1 *\)</span> tiempo_transporte <span class="math inline">\(+ \beta_2 *\)</span> duracion_viaje <span class="math inline">\(+ \beta_3*\)</span>calificacion_viaje <span class="math inline">\(+ \epsilon\)</span></p>
@@ -321,9 +326,9 @@ Multiple R-squared:  0.1401,    Adjusted R-squared:  0.1132
 F-statistic: 5.212 on 3 and 96 DF,  p-value: 0.002234</code></pre>
 </div>
 </div>
-<p>Notemos que los p-valores nos indican para cada coeficiente si la variable independiente tiene un efecto significativo en <code>gasto_persona</code>. Un p-valor menor a 0.05 sugiere que la variable tiene un efecto significativo. Por ello, tanto el término independiente como los coeficientes de <code>tiempo_transporte</code> y <code>duracion_viaje</code> tienen un efecto significativos. Por contra, la calificacion del viaje no tiene un efecto significativo en el gasto. Por lo tanto, lo obviamos.</p>
-<p>Es interesante que la calificación del viaje no tenga un efecto significativo en el gasto. Podría indicar que los gastos del vaijero no dependen necesariamente de su satisfacción con el viaje, sino del tipo de viaje o destino.</p>
-<p>Consideremos el modelo de regresión multivariante siguiente:</p>
+<p>Notemos que los p-valores nos indican para cada coeficiente si la variable independiente tiene un efecto significativo en <code>gasto_persona</code>. Un p-valor menor a 0.05 sugiere que la variable tiene un efecto significativo. Por ello, tanto el término independiente como los coeficientes de <code>tiempo_transporte</code> y <code>duracion_viaje</code> tienen un efecto significativo. Por contra, la calificacion del viaje no tiene un efecto significativo en el gasto. Por lo tanto, lo obviamos.</p>
+<p>Es interesante que la calificación del viaje no tenga un efecto significativo en el gasto. Podría indicar que los gastos del viajero no dependen necesariamente de su satisfacción con el viaje, sino del tipo de viaje o destino.</p>
+<p>Consideremos el modelo de regresión multivariante siguiente con la función <code>lm</code>:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -348,15 +353,15 @@ Multiple R-squared:  0.1338,    Adjusted R-squared:  0.116
 F-statistic: 7.493 on 2 and 97 DF,  p-value: 0.0009422</code></pre>
 </div>
 </div>
-<p>Ahora todos los coeficientes tienen un efecto significativo. <code>Adjusted R-squared</code> es de 0.116.</p>
+<p>Ahora todos los coeficientes tienen un efecto significativo. Adjusted R-squared es de 0.116.</p>
 <p>Consideramos que <code>gasto_persona</code> sigue un modelo de regresión multivariante del tipo:</p>
 <p><span class="math display">\[
 Y = \beta_0 + \beta_1X_1 + \beta_2X_2  + \epsilon
 \]</span></p>
 <p>Donde <span class="math inline">\(Y\)</span> es <code>gasto_persona</code>, <span class="math inline">\(X_1\)</span> es <code>tiempo_transporte</code>, <span class="math inline">\(X_2\)</span> es <code>duracion_viaje</code> y <span class="math inline">\(\epsilon\)</span> es el término de error.</p>
 <p>Calculamos la función de score e interpretamos el resultado. Es una forma de estudiar si el modelo está bien ajustado. Seguimos las indicaciones de la resolución del Problema 2 de la Práctica 5 de la asignatura.</p>
-<p>Para calcular la función de score, consideramos que queremos estimar los parámetros <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span> y <span class="math inline">\(\beta_2\)</span> del modelo de regresión lineal múltiple: <span class="math inline">\(Y = \beta_0 + \beta_1*X_1 + \beta_2*X_2  + \epsilon\)</span>.</p>
-<p>Necesitamos derivar la función de verosimilitud en términos de estos parámetros y luego obtener la función de score tomando la derivada de la log-verosimilitud con respector a <span class="math inline">\(\beta\)</span>.</p>
+<p>Para calcular la función de score, consideramos que queremos estimar los parámetros <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span> y <span class="math inline">\(\beta_2\)</span> del modelo de regresión lineal múltiple: <span class="math inline">\(Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2  + \epsilon\)</span>.</p>
+<p>Necesitamos derivar la función de verosimilitud en términos de estos parámetros y luego obtener la función de score tomando la derivada de la log-verosimilitud con respecto a <span class="math inline">\(\beta\)</span>.</p>
 <p>Podemos escribir el modelo en forma matricial como:</p>
 <p><span class="math display">\[
 Y = X \beta + \epsilon
@@ -366,7 +371,7 @@ Y = X \beta + \epsilon
 <li><p><span class="math inline">\(\beta = (\beta_0, \beta_1, \beta_2)^t\)</span></p></li>
 <li><p><span class="math inline">\(\epsilon \sim  \mathcal{N} (0, \sigma^2I)\)</span> es el vector de términos de error, con una distribución normal con media 0 y varianza <span class="math inline">\(\sigma^2\)</span>.</p></li>
 </ul>
-<p>Como el término del error <span class="math inline">\(\epsilon\)</span> sigue una normal, el vector <span class="math inline">\(Y\)</span> también sigue una distribución normal, con media <span class="math inline">\(X\beta\)</span> t varianza <span class="math inline">\(\sigma^2I\)</span>.</p>
+<p>Como el término del error <span class="math inline">\(\epsilon\)</span> sigue una normal, el vector <span class="math inline">\(Y\)</span> también sigue una distribución normal, con media <span class="math inline">\(X\beta\)</span> y varianza <span class="math inline">\(\sigma^2I\)</span>.</p>
 <p><span class="math display">\[
 Y \sim  \mathcal{N} (X\beta, \sigma^2I)
 \]</span></p>
@@ -379,12 +384,12 @@ f(Y|\beta,\sigma^2) = \frac{1}{(2\pi\sigma^2)^{\frac{n}{2}}}exp \left( -\frac{1}
 \]</span> La función de score es el gradiente de la log-verosimilitud respecto a los parámetros que nos interesan. Hacemos la derivada parcial con respecto a <span class="math inline">\(\beta\)</span> obteniendo la función de Score en términos de <span class="math inline">\(\beta\)</span>.</p>
 <p><span class="math display">\[
 \text{Score}(\beta) = \frac {\partial \ell}{\partial \beta}= \frac{1}{\sigma^2}X^T(Y-X\beta)
-\]</span> La función de <span class="math inline">\(Score(\beta)\)</span> nos indica cómo varía la verosimilitud del modelo según los parámetros <span class="math inline">\(\beta\)</span>. Si la función de Score es 0, el modelo alcanza un máximo de verosimiltud respecto <span class="math inline">\(\beta\)</span> así que tenemos un buen ajuste de los coeficientes <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span> y <span class="math inline">\(\beta_2\)</span>. Si no es 0, podríamos seguir cambiando los valores de <span class="math inline">\(\beta\)</span> para un encontrar un mejor ajute.</p>
+\]</span> La función de <span class="math inline">\(\text{Score}(\beta)\)</span> nos indica cómo varía la verosimilitud del modelo según los parámetros <span class="math inline">\(\beta\)</span>. Si la función de Score es 0, el modelo alcanza un máximo de verosimiltud respecto <span class="math inline">\(\beta\)</span> así que tenemos un buen ajuste de los coeficientes <span class="math inline">\(\beta_0\)</span>, <span class="math inline">\(\beta_1\)</span> y <span class="math inline">\(\beta_2\)</span>. Si no es cercano a 0, podríamos seguir cambiando los valores de <span class="math inline">\(\beta\)</span> para un encontrar un mejor ajuste.</p>
 <p>Calculamos el valor de la función de score para estos datos. Usamos los valores de nuestro modelo ajustado:</p>
 <ul>
-<li><span class="math inline">\(\hat \beta_0 = 304.6792\)</span> (<code>Intercept</code>)</li>
-<li><span class="math inline">\(\hat \beta_1=-2.3708\)</span> (<code>tiempo_transporte</code>)</li>
-<li><span class="math inline">\(\hat \beta_2=4.7910\)</span> (<code>duracion_viaje</code>)</li>
+<li><span class="math inline">\(\hat \beta_0 = 304.6792\)</span> (Intercept)</li>
+<li><span class="math inline">\(\hat \beta_1=-2.3708\)</span> (tiempo_transporte)</li>
+<li><span class="math inline">\(\hat \beta_2=4.7910\)</span> (duracion_viaje)</li>
 </ul>
 <p>Obtenemos el siguiente resultado:</p>
 <div class="cell">
@@ -403,46 +408,50 @@ duracion_viaje    4.392462e-14</code></pre>
 <p>Evaluamos si el vector de medias de las variables cuantitativas de interés <code>gasto_persona</code> y <code>tiempo_transporte</code> es el mismo para dos niveles distintos de la variable no cuantitativa <code>destino</code> que hemos modelado como multinomial: viaje solo por España (<code>solo ESP</code>) y viaje solo por el estrangero (<code>solo extranjero</code>).</p>
 <p>Por una parte, ejecutamos el constraste de forma teórica.</p>
 <p>Consultamos la sección <em>3.4.2. Test sobre la media: dos poblaciones</em> de los apuntes de la asignatura.</p>
-<p>Supongamos que tenemmos dos matrices de datos independientes <span class="math inline">\(X_{n_1\times p}\)</span>, <span class="math inline">\(Y_{n_2\times p}\)</span> que provienenn de distribuciones <span class="math inline">\(N_p(\mu_1, \Sigma), N_p(\mu_2, \Sigma)\)</span>.</p>
-<p>En nuestro caso, - <span class="math inline">\(p=2\)</span> - <span class="math inline">\(X\)</span> el subconjunto de <code>gasto_persona</code> y <code>tiempo_transporte</code> cuyo destino es <code>solo ESP</code>, <span class="math inline">\(n_1 = 65\)</span> el tamaño de la muestra <span class="math inline">\(X\)</span>. - <span class="math inline">\(Y\)</span> el subconjuto de <code>gasto_persona</code> y <code>tiempo_transporte</code> cuyo destino es <code>solo extranjero</code>, <span class="math inline">\(n_2 = 27\)</span> el tamaño de la muestra <span class="math inline">\(X\)</span>.</p>
+<p>Supongamos que tenemmos dos matrices de datos independientes <span class="math inline">\(X_{n_1\times p}\)</span>, <span class="math inline">\(Y_{n_2\times p}\)</span> que provienen de distribuciones <span class="math inline">\(N_p(\mu_1, \Sigma), N_p(\mu_2, \Sigma)\)</span>.</p>
+<p>En nuestro caso,</p>
+<ul>
+<li><p><span class="math inline">\(p=2\)</span></p></li>
+<li><p><span class="math inline">\(X\)</span> el subconjunto de <code>gasto_persona</code> y <code>tiempo_transporte</code> cuyo destino es <code>solo ESP</code>, <span class="math inline">\(n_1 = 65\)</span> es el tamaño de la muestra <span class="math inline">\(X\)</span>.</p></li>
+<li><p><span class="math inline">\(Y\)</span> el subconjuto de <code>gasto_persona</code> y <code>tiempo_transporte</code> cuyo destino es <code>solo extranjero</code>, <span class="math inline">\(n_2 = 27\)</span> es el tamaño de la muestra <span class="math inline">\(Y\)</span>.</p></li>
+</ul>
 <p>Construimos un test sobre la hipótesis</p>
 <p><span class="math display">\[
 H_0: \mu_1 = \mu_2
 \]</span> Como <span class="math inline">\(\Sigma\)</span> es desconocida, el estadístico de contraste es</p>
 <p><span class="math display">\[
-\frac{n_1+n_2-1-p}{(n_1+n_2-2)p}\frac{n_1n_2}{n_1+n_2}(\overline{\mathbf{x}}-\overline{\mathbf{y}})'\widehat{\mathbf{S}}^{-1}(\overline{\mathbf{x}}-\overline{\mathbf{y}})\sim F^p_{n_1+n_2-1-p}.
+\frac{n_1+n_2-1-p}{(n_1+n_2-2)p}\frac{n_1n_2}{n_1+n_2}(\overline{\mathbf{x}}-\overline{\mathbf{y}})'\widehat{\mathbf{S}}^{-1}(\overline{\mathbf{x}}-\overline{\mathbf{y}})\sim F^p_{n_1+n_2-1-p}
 \]</span> Siendo <span class="math inline">\(\widehat{\mathbf{S}}=(n_1\mathbf{S}_1+n_2\mathbf{S}_2)/(n_1+n_2-2)\)</span> la estimación centrada (insesgada) de <span class="math inline">\(\Sigma\)</span>.</p>
-<p>Calculamos las medias muestrales (<span class="math inline">\(\over{x}\)</span>, <span class="math inline">\(\over{y}\)</span>), las matrices de covariancia muestrales (<span class="math inline">\(S_1\)</span>, <span class="math inline">\(S_2\)</span>) y la matriz <span class="math inline">\(\hat{S}\)</span>.</p>
+<p>Calculamos las medias muestrales (<span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\bar{y}\)</span>), las matrices de covariancia muestrales (<span class="math inline">\(S_1\)</span>, <span class="math inline">\(S_2\)</span>) y la matriz <span class="math inline">\(\hat{S}\)</span>.</p>
 <p>Obtenemos el estadístico de contraste <span class="math inline">\(F^p_{n_1+n_2-1-p}\)</span> y lo comparamos con el valor crítico (usando un nivel de signifiación <span class="math inline">\(\alpha = 0.05\)</span>) para decidir si rechazamos <span class="math inline">\(H_0\)</span>.</p>
 <p>Si el estadístico de contraste es mayor al valor crítico, rechazamos <span class="math inline">\(H_0\)</span>: las medias son diferentes para los dos destinos.</p>
 <p>Si el estadístico de constraste no alcanza el valor crítico, no rechazamos la hipótesis nula.</p>
 <p>Como el valor del estadístico de contraste (0.106) no alcanza el valor crítico (3.099), no rechazamos <span class="math inline">\(H_0\)</span>. No tenemos suficiente evidencia para afirmar que las medias de <code>gasto_persona</code> y <code>tiempo_transporte</code> son significativamente diferentes entre los destinos.</p>
-<p>Por otra parte, ejecutamos el contraste con la función <code>hostelling.test</code>de <code>R</code>.</p>
-<p>Evaluamos si el vector de medias de las variablescuantitativa <code>gasto_persona</code> y <code>tiempo_transporte</code> es el mismo para dos niveles distintos de la variable no cuantitativa <code>destino</code> que hemos modelado como multinomial: viaje solo por España (<code>solo ESP</code>) y viaje solo por el estrangero (<code>solo extranjero</code>).</p>
-<p>El p-valor del test de Hotelling es de 0.8995, mayor al nivel de significancia estánrd <span class="math inline">\(\alpha = 0.05\)</span>. No hay evidencia suficiente para rechazar la hipótesis nula de que las medias multivariantes de los dos grupos son iguales. En conclusión, las diferencias entre los dos grupos no son estadísticamente significativas.</p>
-<p>No podemos concluir que las medias de <code>gasto_persona</code>y <code>tiempo_transporte</code> difieran significativamente entre los viajeros que van sólo por España y los que viajan solo por el extranjero, las diferencias entre los dos grupos no son estadísticamente significativas.</p>
+<p>Por otra parte, ejecutamos el contraste con la función <code>hotelling.test</code> de <code>R</code>.</p>
+<p>Evaluamos si el vector de medias de las variables cuantitativas <code>gasto_persona</code> y <code>tiempo_transporte</code> es el mismo para dos niveles distintos de la variable no cuantitativa <code>destino</code> que hemos modelado como multinomial: viaje solo por España (<code>solo ESP</code>) y viaje solo por el estrangero (<code>solo extranjero</code>).</p>
+<p>El p-valor del test de Hotelling es de 0.8995, mayor al nivel de significancia <span class="math inline">\(\alpha = 0.05\)</span>. No hay evidencia suficiente para rechazar la hipótesis nula de que las medias multivariantes de los dos grupos son iguales. Las diferencias entre los dos grupos no son estadísticamente significativas.</p>
 </section>
 <section id="conclusiones" class="level3">
 <h3 class="anchored" data-anchor-id="conclusiones">Conclusiones</h3>
 <p>En conclusión, recogemos los resultados de interés de los análisis y valoramos si apoyan o refutan la hipótesis general.</p>
 <p>Del Análisis Descriptivo, destacamos:</p>
 <ul>
-<li><p>A mayor duración del viaje en noches mayor tiempo de transporte en horas, lo cual es razonable.</p></li>
-<li><p>La duración del viaje varía con el sexo y el rango de edad: A partir de los 35 años, la mediana de la duración del viaje en noches de los hombres es mayor que la de las mujeres, y los viajes más largos corresponden principalmente a hombres de mayor edad.</p></li>
+<li><p>A mayor duración del viaje mayor tiempo de transporte, lo cual es razonable.</p></li>
+<li><p>La duración del viaje varía con el sexo y el rango de edad: a partir de los 35 años, la mediana de la duración del viaje en noches de los hombres es mayor que la de las mujeres, y los viajes más largos corresponden principalmente a hombres de mayor edad.</p></li>
 <li><p>Los viajeros con mayor ingresos del hogar tienen una calificación mediana del viaje más baja. Es posible que los viajeros con mayores ingresos del hogar tengan expectativas más altas o viajes más costosos, influyendo en las calificaciones globales más bajas.</p></li>
 </ul>
 <p>Hemos modelado el destino de viaje por una multinomial. Esto puede ser útil para predecir el comportamiento de los viajeros.</p>
 <p>Hemos obtenido un modelo de regresión multivariante de la forma:</p>
 <p>gasto_persona = <span class="math inline">\(\beta_0\)</span> + <span class="math inline">\(\beta_1\)</span> tiempo_transporte + <span class="math inline">\(\beta_2\)</span> duracion_viaje</p>
-<p>Considermaos que este modelo está bien ajustado (los valores de Score que obtenemos son cercanos a cero).</p>
+<p>Consideramos que el modelo obtenido está bien ajustado (los valores de Score obtenidos son cercanos a cero).</p>
 <p>Hemos visto que no podemos concluir que las medias del gasto por persona y el tiempo de transporte difieran significativamente entre los viajeros que viajan sólo por España y los que viajan solo por el extranjero.</p>
 <p>Esto apoya la hipótesis general de que el gasto por persona y el tiempo de transporte no varían según el destino del viaje: España o el extranjero.</p>
 </section>
 <section id="recomendaciones" class="level3">
 <h3 class="anchored" data-anchor-id="recomendaciones">Recomendaciones</h3>
-<p>Consideramos sugerencias para futuros estudios o para poíticas de turismo.</p>
+<p>Consideramos sugerencias para futuros estudios o políticas de turismo.</p>
 <p>Para futuros estudios, proponemos recoger información sobre el tipo de alojamiento y estudiar su relación con la calificación global y el gasto. También puede ser interesante comparar los datos entre diferentes trimestres y obersvar la estacionalidad.</p>
-<p>Para políticas de turismo, proponemos adaptar la oferta a las expecativas de viajeros de altos ingresos, dado que estos viajeros tienden a dar calificaciones más bajas. Por ejemplo, ampliar la variedad de servicios premium.</p>
+<p>Para políticas de turismo, proponemos adaptar la oferta a las expecativas de viajeros de altos ingresos, dado que hemos observado que estos viajeros tienden a dar calificaciones más bajas. Por ejemplo, se podría ampliar la variedad de servicios premium.</p>
 </section>
 <section id="bibliografía" class="level3">
 <h3 class="anchored" data-anchor-id="bibliografía">Bibliografía</h3>
