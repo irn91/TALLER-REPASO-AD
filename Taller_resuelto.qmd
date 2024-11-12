@@ -142,7 +142,7 @@ datos %>%
   glimpse
 ```
 
-### Análisis descriptivo e interpretación de la variancia
+### Análisis descriptivo e interpretación de la varianza
 
 Realicemos un análisis descriptivo multivariantes de la base de datos de acuerdo a los objetivos del trabajo.
 
@@ -417,7 +417,7 @@ $$
 $$
 Siendo $\widehat{\mathbf{S}}=(n_1\mathbf{S}_1+n_2\mathbf{S}_2)/(n_1+n_2-2)$ la estimación centrada (insesgada) de $\Sigma$.
 
-Calculamos las medias muestrales ($\bar{x}$, $\bar{y}$), las matrices de covariancia muestrales ($S_1$, $S_2$) y la matriz $\hat{S}$.
+Calculamos las medias muestrales ($\bar{x}$, $\bar{y}$), las matrices de covarianza muestrales ($S_1$, $S_2$) y la matriz $\hat{S}$.
 
 Obtenemos el estadístico de contraste $F^p_{n_1+n_2-1-p}$ y lo comparamos con el valor crítico (usando un nivel de signifiación $\alpha = 0.05$) para decidir si rechazamos $H_0$.
 

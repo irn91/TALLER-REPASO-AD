@@ -77,7 +77,7 @@ window.Quarto = {
   <ul>
   <li><a href="#objetivos" id="toc-objetivos" class="nav-link active" data-scroll-target="#objetivos">Objetivos</a></li>
   <li><a href="#descripción-de-los-datos" id="toc-descripción-de-los-datos" class="nav-link" data-scroll-target="#descripción-de-los-datos">Descripción de los datos</a></li>
-  <li><a href="#análisis-descriptivo-e-interpretación-de-la-variancia" id="toc-análisis-descriptivo-e-interpretación-de-la-variancia" class="nav-link" data-scroll-target="#análisis-descriptivo-e-interpretación-de-la-variancia">Análisis descriptivo e interpretación de la variancia</a>
+  <li><a href="#análisis-descriptivo-e-interpretación-de-la-varianza" id="toc-análisis-descriptivo-e-interpretación-de-la-varianza" class="nav-link" data-scroll-target="#análisis-descriptivo-e-interpretación-de-la-varianza">Análisis descriptivo e interpretación de la varianza</a>
   <ul>
   <li><a href="#diferencias-por-sexo" id="toc-diferencias-por-sexo" class="nav-link" data-scroll-target="#diferencias-por-sexo">Diferencias por Sexo</a></li>
   <li><a href="#tiempo-de-transporte-por-sexo" id="toc-tiempo-de-transporte-por-sexo" class="nav-link" data-scroll-target="#tiempo-de-transporte-por-sexo">Tiempo de transporte por Sexo</a></li>
@@ -197,8 +197,8 @@ $ nivel_interes      &lt;ord&gt; Bajo, Bajo, Bajo, Alto, Neutro, Bajo, Neutro, N
 </div>
 </div>
 </section>
-<section id="análisis-descriptivo-e-interpretación-de-la-variancia" class="level3">
-<h3 class="anchored" data-anchor-id="análisis-descriptivo-e-interpretación-de-la-variancia">Análisis descriptivo e interpretación de la variancia</h3>
+<section id="análisis-descriptivo-e-interpretación-de-la-varianza" class="level3">
+<h3 class="anchored" data-anchor-id="análisis-descriptivo-e-interpretación-de-la-varianza">Análisis descriptivo e interpretación de la varianza</h3>
 <p>Realicemos un análisis descriptivo multivariantes de la base de datos de acuerdo a los objetivos del trabajo.</p>
 <section id="diferencias-por-sexo" class="level4">
 <h4 class="anchored" data-anchor-id="diferencias-por-sexo">Diferencias por Sexo</h4>
@@ -422,7 +422,7 @@ H_0: \mu_1 = \mu_2
 <p><span class="math display">\[
 \frac{n_1+n_2-1-p}{(n_1+n_2-2)p}\frac{n_1n_2}{n_1+n_2}(\overline{\mathbf{x}}-\overline{\mathbf{y}})'\widehat{\mathbf{S}}^{-1}(\overline{\mathbf{x}}-\overline{\mathbf{y}})\sim F^p_{n_1+n_2-1-p}
 \]</span> Siendo <span class="math inline">\(\widehat{\mathbf{S}}=(n_1\mathbf{S}_1+n_2\mathbf{S}_2)/(n_1+n_2-2)\)</span> la estimación centrada (insesgada) de <span class="math inline">\(\Sigma\)</span>.</p>
-<p>Calculamos las medias muestrales (<span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\bar{y}\)</span>), las matrices de covariancia muestrales (<span class="math inline">\(S_1\)</span>, <span class="math inline">\(S_2\)</span>) y la matriz <span class="math inline">\(\hat{S}\)</span>.</p>
+<p>Calculamos las medias muestrales (<span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\bar{y}\)</span>), las matrices de covarianza muestrales (<span class="math inline">\(S_1\)</span>, <span class="math inline">\(S_2\)</span>) y la matriz <span class="math inline">\(\hat{S}\)</span>.</p>
 <p>Obtenemos el estadístico de contraste <span class="math inline">\(F^p_{n_1+n_2-1-p}\)</span> y lo comparamos con el valor crítico (usando un nivel de signifiación <span class="math inline">\(\alpha = 0.05\)</span>) para decidir si rechazamos <span class="math inline">\(H_0\)</span>.</p>
 <p>Si el estadístico de contraste es mayor al valor crítico, rechazamos <span class="math inline">\(H_0\)</span>: las medias son diferentes para los dos destinos.</p>
 <p>Si el estadístico de constraste no alcanza el valor crítico, no rechazamos la hipótesis nula.</p>
