@@ -1,0 +1,526 @@
+---
+title: "Taller evaluado de repaso para el Primer Parcial"
+subtitle: "20582- Análisis de Datos para el GMAT"
+format:
+  html:
+    theme: lumen
+    toc: true
+    toc-depth: 3
+Rendering:
+    embed-resources: true
+author: 
+  - Irene Rodríguez
+---
+
+[Enlace al repositorio de Github](https://github.com/irn91/TALLER_REPASO_AD)
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(knitr)
+library(MASS)
+library(hrbrthemes)
+library(viridis)
+library(GGally)
+library(ggplot2)
+library(Hotelling)
+```
+
+Aplicamos los pasos del método científico para abordar, con datos simulados, un estudio relacionado con el turismo: los viajes realizados por la población que reside en España en el Segundo Trimestre del 2024. Estudiamos las relaciones entre los diferentes aspectos del viaje y las características de los viajeros.
+
+Simulamos datos de una encuesta de turismo aplicada a los residentes de España sobre sus viajes en dicho periodo. Obtenemos información de la duración del viaje, el gasto por persona, el tiempo de transporte y el destino, entre otros aspectos de interés como el sexo, el rango de edad, los ingresos del hogar o la calificación global del viaje.
+
+Planteamos objetivos de estudio, describimos los datos, los analizamos y obtenemos conclusiones.
+
+### Objetivos
+
+La hipótesis general que deseamos investigar es "El gasto por persona y el tiempo de transporte no varían según el destino del viaje: España o el extranjero".
+
+Definimos objetivos específicos para validar o refutar dicha hipótesis.
+
+  - Breve análisis exploratorio de datos.
+
+  - Modelar el destino del viaje por una distribución multinomial.
+  
+  - Realizar un modelo de regresión multivariante del gasto por persona en función de la duración del viaje y el tiempo de transporte.
+  
+  - Analizar si las medias del gasto por persona y el tiempo de transporte difieren significativamente según el destino del viaje.
+
+### Descripción de los datos
+
+Consultamos los resultados de la Encuesta de Turismo de Residentes del Segundo trimestre 2024 del repositorio [INE](https://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&cid=1254736176990&menu=ultiDatos&idp=1254735576863).
+
+Algunos resultados de interés:
+
+  - El número de viajes de los residentes en España en el segundo trimestre es de más de 45 millones, el 68.8% de los residentes viaja. 
+
+  - El gasto total superó los 13.858 millones de euros. 
+
+  - La duración media del viaje es de 3.26 noches. 
+
+  - El gasto medio por persona es de 307.33 euros. 
+
+  - Entre los viajeros, el 51.8% son mujeres y el 48.2% hombres. 
+
+  - El 64.8% viaja solo por España, el 27.5% solo por elextranjero y el 7.7% por España y el extranjero. 
+
+  - Hay más viajeros jóvenes.
+  
+  - Hay más viajeros con mayores ingresos del hogar.
+
+![Extracto de la Infografia de la encuesta del INE.](imagen1.png){width=65%}
+
+Definimos las variables clave:
+
+  - Variables cuantitativas:
+  
+    - `duracion_viaje`: duración del viaje en noches.
+    
+    - `gasto_persona`: gasto por persona en euros.
+    
+    - `tiempo_transporte`: tiempo dedicado al transporte durante el viaje en horas.
+    
+    - `calificacion_viaje`: calificacion del viaje del 0 al 100.
+    
+  - Variables ordinales:
+  
+    - `rango_edad`: rango de edad en años ("15-34", "35-54", "55 o más").
+    
+    - `ingresos_hogar`: ingresos del hogar en euros al mes ("1.499 o menos", "1.500-3.499", "3.500 o más").
+    
+    - `nivel_interes`: nivel de interés en el viaje ("Bajo", "Neutro", "Alto").
+
+  - Variables nominales:
+  
+    - `destino`: ¿Por dónde viajan? "Solo España", "España y extranjero", "Solo extranjero"
+    
+    - `sexo`: "Mujer", "Hombre".
+
+Generamos una base de datos con 100 observaciones y las variables definidas. Las variables cuantitativas siguen una distribución normal multivariante. Utilizamos la información obtenida del INE para simular las medias y las proporciones.
+
+Visualizamos la tabla de datos.
+
+```{r, echo=FALSE, output=TRUE}
+media <- c(3.26, 5, 307.33, 80)  # Medias para duracion_viaje (3.26 noches), tiempo_transporte (5 horas), gasto_persona (307.33 euros), calificacion_viaje (0 al 100)
+covarianza <- matrix(c(2, 2, 5, 1,
+                       2, 4, 3, 1,
+                       5, 3, 200, 2,
+                       1, 1, 2, 20), 
+                     nrow = 4, ncol = 4)
+
+set.seed(30)
+datos_numericos <- mvrnorm(100, mu = media, Sigma = covarianza)
+
+# Limitar y ajustar valores
+datos_numericos[,1] <- pmin(pmax(round(datos_numericos[,1], 1), 0), 90)  # duracion del viaje en noches
+datos_numericos[,2] <- pmax(round(datos_numericos[,2], 1), 1)   # tiempo transporte en horas 
+datos_numericos[,3] <- pmax(round(datos_numericos[,3], 2), 0.5) # gasto por persona en euros
+datos_numericos[,4] <- pmin(pmax(round(datos_numericos[,4], 1), 0), 100)  # calificacion del viaje (0 al 100)
+
+datos_viajes <- data.frame(
+  duracion_viaje = round(datos_numericos[,1]),
+  tiempo_transporte = round(datos_numericos[,2]),
+  gasto_persona = round(datos_numericos[,3], 2),
+  calificacion_viaje = round(datos_numericos[,4]),
+  destino = as.factor(sample(c(rep("solo ESP", 65), rep("solo extranjero", 27), rep("ESP y extranjero", 8)))),
+  sexo = as.factor(sample(c(rep("mujer", 52), rep("hombre", 48)))),
+  rango_edad = factor(sample(c(rep("15-34", 46), rep("35-54", 34), rep("55 o más", 20))), levels = c("15-34", "35-54", "55 o más"), ordered = TRUE),
+  ingresos_hogar = factor(sample(c(rep("1.499 o menos", 46), rep("1.500-3.499", 34), rep("3.500 o más", 20))),levels = c("1.499 o menos", "1.500-3.499", "3.500 o más"), ordered = TRUE)
+)
+
+# Identificador y unir datos
+datos_viajes <- datos_viajes %>% mutate(ID_viaje = 1:100)
+datos_adicionales <- data.frame(
+  ID_viaje = 1:100,
+  nivel_interes = factor(sample(c("Bajo", "Neutro", "Alto"), 100, replace = TRUE), levels = c("Bajo", "Neutro", "Alto"), ordered = TRUE)
+)
+datos <- left_join(datos_viajes, datos_adicionales, by = "ID_viaje")
+datos <- datos[,-9]
+
+# Visualizar datos
+datos %>% 
+  glimpse
+```
+
+### Análisis descriptivo e interpretación de la variancia
+
+Realicemos un análisis descriptivo multivariantes de la base de datos de acuerdo a los objetivos del trabajo.
+
+#### Diferencias por Sexo
+
+Veámoslo de froma más clara. Con `ggpais`, pintemos las variables cuantitativas por sexo. 
+
+```{r, echo =FALSE}
+ggpairs(datos[,1:4], aes(color = datos$sexo)) +
+  theme_bw()  
+```
+En el triangulo inferior de la representación vemos los gráficos de dispersión y en el triangulo superior se indican las correlaciones. Vemos que la correlación positiva entre la duración del viaje y el tiempo de transporte se muestra en su gráfico de dispersión: a mayor duración del viaje mayor tiempo de transporte.
+
+En la diagonal se muestran las distribuciones de cada variable distinguidas por sexo. Vemos una cierta diferencia entre hombres y mujeres en la duración del viaje y tiempo de transporte.
+
+#### Tiempo de transporte por Sexo
+
+Cruzamos la variable cuantitativa `tiempo_transporte` con la variable categórica `sexo`.  Usamos gráficos de `boxplot` para visualizar la información.
+
+```{r, echo=FALSE, output=TRUE}
+ggplot(datos, aes(x = sexo, y = tiempo_transporte)) +
+  theme_bw() + 
+  geom_boxplot(aes(color = sexo), width = 0.3, 
+               show.legend = FALSE) + 
+  geom_jitter(aes(color = sexo), alpha = 0.5, 
+              show.legend = FALSE, 
+              position = position_jitter(width = 0.2, seed = 0)) + 
+  scale_color_manual(values = c("magenta3","darkgreen")) + 
+  labs(x = "Sexo", y = "Tiempo transporte (horas)", title = "Tiempo de transporte por Sexo")
+```
+Vemos que la mediana del tiempo que los hombres dedican al transporte en los viajes es mayor que la de las mujeres. 
+
+#### Duración del viaje por Sexo y Rango de edad
+
+Ahora, graficamos un gráfico de violín para estudiar la duración del viaje por Sexo y Rango de edad.
+
+```{r, echo=FALSE, warning=FALSE}
+ggplot(datos, aes(fill = sexo, y = duracion_viaje, x = rango_edad)) +
+  geom_violin(position = "dodge", alpha = 0.5, outlier.colour = "transparent") +
+  scale_fill_viridis(discrete = TRUE, name = "Sexo") +
+  theme_ipsum() +
+  xlab("Rango de Edad") +
+  ylab("Duración del Viaje")
+```
+La duración del viaje varía con el sexo y el rango de edad: A partir de los 35 años, la mediana de la duración del viaje en noches de los hombres es mayor que la de las mujeres y los viajes más largos corresponden a hombres de mayor edad.
+
+#### Calificación del viaje por ingresos del hogar
+
+Con `ggplot`, comparamos la calificación del viaje por ingresos del hogar.
+
+```{r, echo =FALSE}
+ggplot(datos, aes(x = ingresos_hogar, y = calificacion_viaje)) +
+  theme_bw() + 
+  geom_boxplot(aes(color = ingresos_hogar), width = 0.3, 
+               show.legend = FALSE) + 
+  geom_jitter(aes(color = ingresos_hogar), alpha = 0.5, 
+              show.legend = FALSE, 
+              position = position_jitter(width = 0.2, seed = 0)) + 
+  scale_color_manual(values = c("cyan3", "orange", "green3")) + 
+  labs(x = "Ingresos del hogar (euros al mes)", y = "Calificacion del viaje", title = "Calificación del viaje por Ingresos del hogar")
+```
+Notemos que la calificación del viaje varía según los ingresos del hogar. Los viajeros con mayor ingresos del hogar tienen una calificación mediana del viaje más baja. Por contra, los viajeros con ingresos del hogar de menos de 1.500 euros al mes han calificado de mediana el viaje más positivamente.
+
+Es posible que los viajeros con mayores ingresos del hogar tengan expectativas más altas o viajes más costosos, influyendo en las calificaciones globales más bajas.
+
+#### Variables cuantitativas: varianza generalizada y total
+
+Para las variables cuantitativas de la base de datos, calculamos e interpretamos la información que proporciona la varianza generalizada y la varianza total.
+
+Definición de varianza generalizada: $$|S| = \prod_i^p \lambda_i$$
+
+Definición de variación total: $$Tr(S)= \sum_i^p \lambda_i$$
+
+donde los $\lambda_i$ són los valores propios de la matriz de covarianzas $S$. 
+
+Obtenemos los valores propios de $S$.
+
+```{r, echo=FALSE, output=FALSE}
+valores_propios_S <- eigen(covarianza)$values
+valores_propios_S
+```
+
+La varianza generalizada es 14468.
+
+```{r, include=FALSE}
+prod(valores_propios_S)
+```
+
+de manera que hay mucha variabilidad conjunta.
+
+Y la variación total es 226.
+
+```{r, include=FALSE}
+sum(valores_propios_S)
+```
+
+Por lo tanto, la suma de las variaciones es de 226. 
+
+Notemos que la cantidad de variabilidad que hay en el conjunto de datos es considerable.
+
+### Variables no cuantitativas: Modelo de distribución multinomial
+
+Seleccionamos una de las variables no cuantitativas: `destino`. La varible `destino` es el factor que indica por dónde viaja la persona. Tiene tres niveles: sólo por España (`solo ESP`), por España y el extranjero (`ESP y extranjero`) y sólo por el extranjero (`solo extranjero`).
+
+La modelizamos con una distribución multinomial, debemos estimar sus parámetros. 
+
+De las 100 observaciones: 
+
+  - Solo por España (`solo ESP`) tiene 65 observaciones: frecuencia relativa $p_1 = 0.65$.
+  
+  - Solo por elextranjero (`solo extranjero`) tiene 27 observaciones: frecuencia relativa $p_{2} = 0.27$.
+  
+  - Por España y el extranjero (`ESP y extranjero` tiene 8 observaciones: frecuencia relativa $p_{3} = 0.08$.
+  
+Distribución multinomial de parámetros estimados $p_1 = 0.65$, $p_{2} = 0.27$ y $p_{3} = 0.08$.
+
+### Cálculo de la probabilidad de un evento en una muestra de tamaño 20:
+
+Utilizamos el modelo para calcular la probabilidad de que ocurra un evento de interés en una muestra de tamaño 20, relevante para el problema. 
+
+Interesa saber si la mayoría viaja por España. De una muestra de tamaño 20, queremos calcular la probabilidad de que haya 15 observaciones de `solo ESP`, 3 de `solo extranjero` y 2 de `ESP y extranjero`. 
+
+Como consideramos una distribución multinomial:
+
+$$
+P(X_1 = x_1, X_2 = x_2, X_3 = x_3) = \frac{20!}{x_1! x_2! x_3!} \cdot p_1^{x_1} \cdot p_2^{x_2} \cdot p_3^{x_3}
+$$
+
+Donde $x_1 = 15$, $x_2 = 3$, $x_3 = 2$, $p_1 = 0.65$, $p_2 = 0.27$, $p_3 = 0.08$.
+
+Así, la probabilidad es del 3.05%.
+
+Con la función `dmultinom` de `R` obtenemos el mismo valor.
+
+```{r, eval=FALSE, echo=FALSE}
+# Comprobamos que da el mismo valor con la funcion de r
+probabilidad <- dmultinom(x = c(15,3,2), size = 20, prob = c(0.65, 0.27, 0.08))
+print(probabilidad)
+```
+
+### Variables cuantitativas: Modelo de regresión multivariante
+
+Con las variables cuantitativas de tu base de datos, ajusta un modelo de regresión multivariante en la forma:
+
+$$Y=\beta_0+\beta_1 X_1+ \cdots + \beta_p X_p + \epsilon$$
+Donde $Y$ es la variable cuantitativa que deseas explicar en función del resto de variables cuantitativas registradas. Además, calcula la función de score e interpreta su resultado en el contexto del problema.
+
+Vamos a modelar `gasto_persona` como función de las demás variables cuantitativas: `tiempo_transporte`, `duracion_viaje` y `calificacion_viaje`.
+
+Usamos `lm` para ajustar el modelo de regresión múltiple, que es una forma de regresión multivariante. Es de la forma:
+
+gasto_persona  = $\beta_0 + \beta_1 *$ tiempo_transporte $+ \beta_2 *$ duracion_viaje $+ \beta_3*$calificacion_viaje $+ \epsilon$
+
+```{r, echo=FALSE}
+modelo_regresion <- lm(gasto_persona ~ tiempo_transporte + duracion_viaje + calificacion_viaje, data = datos)
+summary(modelo_regresion)
+```
+
+Notemos que los p-valores nos indican para cada coeficiente si la variable independiente tiene un efecto significativo en `gasto_persona`. Un p-valor menor a 0.05 sugiere que la variable tiene un efecto significativo. Por ello, tanto el término independiente como los coeficientes de `tiempo_transporte` y `duracion_viaje` tienen un efecto significativos. Por contra, la calificacion del viaje no tiene un efecto significativo en el gasto. Por lo tanto, lo obviamos.
+
+Es interesante que la calificación del viaje no tenga un efecto significativo en el gasto. Podría indicar que los gastos del vaijero no dependen necesariamente de su satisfacción con el viaje, sino del tipo de viaje o destino.
+
+Consideremos el modelo de regresión multivariante siguiente:
+
+```{r, echo=FALSE}
+modelo_regresion <- lm(gasto_persona ~ tiempo_transporte + duracion_viaje, data = datos)
+summary(modelo_regresion)
+```
+Ahora todos los coeficientes tienen un efecto significativo. `Adjusted R-squared` es de 0.116.
+
+Consideramos que `gasto_persona` sigue un modelo de regresión multivariante del tipo:
+
+$$
+Y = \beta_0 + \beta_1X_1 + \beta_2X_2  + \epsilon
+$$
+
+Donde $Y$ es `gasto_persona`, $X_1$ es `tiempo_transporte`, $X_2$ es `duracion_viaje` y $\epsilon$ es el término de error.
+
+Calculamos la función de score e interpretamos el resultado. Es una forma de estudiar si el modelo está bien ajustado. Seguimos las indicaciones de la resolución del Problema 2 de la Práctica 5 de la asignatura.
+
+Para calcular la función de score, consideramos que queremos estimar los parámetros $\beta_0$, $\beta_1$ y $\beta_2$ del modelo de regresión lineal múltiple: $Y = \beta_0 + \beta_1*X_1 + \beta_2*X_2  + \epsilon$.
+
+Necesitamos derivar la función de verosimilitud en términos de estos parámetros y luego obtener la función de score tomando la derivada de la log-verosimilitud con respector a $\beta$.
+
+Podemos escribir el modelo en forma matricial como:
+
+$$
+Y = X \beta + \epsilon
+$$
+donde 
+
+  - $X = (1 \, X_1 \, X_2)$ es una columna de unos seguida de las columnas formadas por $X_1$ y $X_2$.
+
+  - $\beta = (\beta_0, \beta_1, \beta_2)^t$
+  
+  - $\epsilon \sim  \mathcal{N} (0, \sigma^2I)$ es el vector de términos de error, con una distribución normal con media 0 y varianza $\sigma^2$.
+  
+Como el término del error $\epsilon$ sigue una normal, el vector $Y$ también sigue una distribución normal, con media $X\beta$ t varianza $\sigma^2I$.
+
+$$
+Y \sim  \mathcal{N} (X\beta, \sigma^2I)
+$$
+
+Así, la función de densidad conjunta de $Y$ es:
+
+$$
+f(Y|\beta,\sigma^2) = \frac{1}{(2\pi\sigma^2)^{\frac{n}{2}}}exp \left( -\frac{1}{2\sigma^2}(Y-X\beta)^T(Y-X\beta) \right)
+$$
+La log-verosimilitud $\ell(\beta,\sigma^2|Y)$ es:
+
+$$
+\ell(\beta,\sigma^2|Y) = - \frac{n}{2} \log(2\pi\sigma^2) - \frac{1}{2\sigma^2}(Y-X\beta)^T(Y-X\beta)
+$$
+La función de score es el gradiente de la log-verosimilitud respecto a los parámetros que nos interesan. Hacemos la derivada parcial con respecto a $\beta$ obteniendo la función de Score en términos de $\beta$.
+
+$$
+\text{Score}(\beta) = \frac {\partial \ell}{\partial \beta}= \frac{1}{\sigma^2}X^T(Y-X\beta)
+$$
+La función de $Score(\beta)$ nos indica cómo varía la verosimilitud del modelo según los parámetros $\beta$. Si la función de Score es 0, el modelo alcanza un máximo de verosimiltud respecto $\beta$ así que tenemos un buen ajuste de los coeficientes $\beta_0$, $\beta_1$ y $\beta_2$. Si no es 0, podríamos seguir cambiando los valores de $\beta$ para un encontrar un mejor ajute.
+
+Calculamos el valor de la función de score para estos datos. Usamos los valores de nuestro modelo ajustado: 
+
+  - $\hat \beta_0 = 304.6792$ (`Intercept`)
+  - $\hat \beta_1=-2.3708$ (`tiempo_transporte`)
+  - $\hat \beta_2=4.7910$ (`duracion_viaje`)
+  
+Obtenemos el siguiente resultado:
+
+```{r, echo=FALSE}
+# Obtenemos los datos necesarios del modelo_regresion de lm
+beta <- coef(modelo_regresion)
+
+Y <- datos$gasto_persona
+X <- model.matrix(modelo_regresion)
+
+# Varianza estimada de los errores sigma^2
+sigma_sq <- summary(modelo_regresion)$sigma^2
+
+# Cálculo de la función de score
+score <- (1 / sigma_sq) * t(X) %*% (Y - X %*% beta)
+score
+```
+Los valores de Score que obtenemos son cercanos a cero. Esto sugiere que el modelo está bien ajustado (se encuentra cerca del punto de máxima verosimilitud respecto a los parámetros) y no sería necesario realizar ajustes adicionales.
+
+### Contraste de hipótesis de dos medias multivariante
+
+Realizamos un contraste de hipótesis de dos medias multivariante relevante para el problema.
+
+Evaluamos si el vector de medias de las variables cuantitativas de interés `gasto_persona` y `tiempo_transporte` es el mismo para dos niveles distintos de la variable no cuantitativa `destino` que hemos modelado como multinomial: viaje solo por España (`solo ESP`) y viaje solo por el estrangero (`solo extranjero`).
+
+Por una parte, ejecutamos el constraste de forma teórica.
+
+Consultamos la sección *3.4.2. Test sobre la media: dos poblaciones* de los apuntes de la asignatura.
+
+Supongamos que tenemmos dos matrices de datos independientes $X_{n_1\times p}$, $Y_{n_2\times p}$ que provienenn de distribuciones $N_p(\mu_1, \Sigma), N_p(\mu_2, \Sigma)$. 
+
+En nuestro caso, 
+  - $p=2$
+  - $X$ el subconjunto de `gasto_persona` y `tiempo_transporte` cuyo destino es `solo ESP`, $n_1 = 65$ el tamaño de la muestra $X$. 
+  - $Y$ el subconjuto de `gasto_persona` y `tiempo_transporte` cuyo destino es `solo extranjero`, $n_2 = 27$ el tamaño de la muestra $X$.
+
+Construimos un test sobre la hipótesis
+
+$$
+H_0: \mu_1 = \mu_2
+$$
+Como $\Sigma$ es desconocida, el estadístico de contraste es 
+
+$$
+\frac{n_1+n_2-1-p}{(n_1+n_2-2)p}\frac{n_1n_2}{n_1+n_2}(\overline{\mathbf{x}}-\overline{\mathbf{y}})'\widehat{\mathbf{S}}^{-1}(\overline{\mathbf{x}}-\overline{\mathbf{y}})\sim F^p_{n_1+n_2-1-p}.
+$$
+Siendo $\widehat{\mathbf{S}}=(n_1\mathbf{S}_1+n_2\mathbf{S}_2)/(n_1+n_2-2)$ la estimación centrada (insesgada) de $\Sigma$.
+
+Calculamos las medias muestrales ($\over{x}$, $\over{y}$), las matrices de covariancia muestrales ($S_1$, $S_2$) y la matriz $\hat{S}$.
+
+Obtenemos el estadístico de contraste $F^p_{n_1+n_2-1-p}$ y lo comparamos con el valor crítico (usando un nivel de signifiación $\alpha = 0.05$) para decidir si rechazamos $H_0$.
+
+```{r, echo=FALSE, output=FALSE}
+# Filtrar las observaciones para cada destino y extraer gasto_persona y tiempo_transporte
+X <- subset(datos, destino == "solo ESP", select = c(gasto_persona, tiempo_transporte))
+Y <- subset(datos, destino == "solo extranjero", select = c(gasto_persona, tiempo_transporte))
+
+# Tamaños muestra
+n1 = nrow(X)
+n2 = nrow(Y)
+
+# Vectores de medias muestrales
+mean_X <- colMeans(X)
+mean_Y <- colMeans(Y)
+
+# Matrices de covarianza muestrales
+S1 <- (n1 - 1)/n1 * cov(X)
+S2 <- (n2 - 1)/n2 * cov(Y)
+
+# S tilde
+Sp <- (n1 * S1 + n2 * S2) / (n1 + n2 - 2)
+
+# Estadístico F
+p = 2
+F_statistic = ((n1 + n2 - 1 - p) / ((n1 + n2 - 2) * p)) * (n1 * n2 / (n1 + n2)) * 
+  t(mean_X - mean_Y) %*% solve(Sp) %*% (mean_X - mean_Y)
+F_statistic <- as.numeric(F_statistic)
+F_statistic
+
+alpha = 0.05
+df1 = p
+df2 = n1 + n2 - 1 - p
+
+# Valor crítico de F
+valor_critico = qf(1 - alpha, df1, df2)
+valor_critico
+```
+
+Si el estadístico de contraste es mayor al valor crítico, rechazamos $H_0$: las medias son diferentes para los dos destinos.
+
+Si el estadístico de constraste no alcanza el valor crítico, no rechazamos la hipótesis nula.
+
+Como el valor del estadístico de contraste (0.106) no alcanza el valor crítico (3.099), no rechazamos $H_0$. No tenemos suficiente evidencia para afirmar que las medias de `gasto_persona` y `duracion_viaje` son significativamente diferentes entre los destinos.
+
+Por otra parte, ejecutamos el contraste con la función `hostelling.test`de `R`. 
+
+Evaluamos si el vector de medias de las variablescuantitativa `gasto_persona` y `tiempo_transporte` es el mismo para dos niveles distintos de la variable no cuantitativa `destino` que hemos modelado como multinomial: viaje solo por España (`solo ESP`) y viaje solo por el estrangero (`solo extranjero`).
+
+```{r, echo=FALSE, output=FALSE}
+# Filtrar los datos para excluir 'ESP y extranjero' y preparar los datos
+datos_filtrados <- subset(datos, destino != "ESP y extranjero")
+datos_filtrados$destino <- droplevels(datos_filtrados$destino)  # eliminar nivel no utilizado
+levels(datos_filtrados$destino) # factor de dos niveles
+
+class(datos_filtrados$gasto_persona)  # numérico
+class(datos_filtrados$tiempo_transporte)  # numérico
+
+# test de Hotelling
+resultados <- hotelling.test(cbind(gasto_persona, tiempo_transporte) ~ destino, data = datos_filtrados)
+print(resultados)
+```
+
+El p-valor del test de Hotelling es de 0.8995, mayor al nivel de significancia estánrd $\alpha = 0.05$. No hay evidencia suficiente para rechazar la hipótesis nula de que las medias multivariantes de los dos grupos son iguales. En conclusión, las diferencias entre los dos grupos no son estadísticamente significativas. 
+
+No podemos concluir que las medias de `gasto_persona`y `tiempo_transporte` difieran significativamente entre los viajeros que van sólo por España y los que viajan solo por el extranjero, las diferencias entre los dos grupos no son estadísticamente significativas.
+
+### Conclusiones
+
+En conclusión, recogemos los resultados  de interés de los análisis y valoramos si apoyan o refutan la hipótesis general.
+
+Del Análisis Descriptivo, destacamos:
+
+  - A mayor duración del viaje en noches mayor tiempo de transporte en horas, lo cual es razonable.
+  
+  - La duración del viaje varía con el sexo y el rango de edad: A partir de los 35 años, la mediana de la duración del viaje en noches de los hombres es mayor que la de las mujeres, y los viajes más largos corresponden principalmente a hombres de mayor edad.
+  
+  - Los viajeros con mayor ingresos del hogar tienen una calificación mediana del viaje más baja. Es posible que los viajeros con mayores ingresos del hogar tengan expectativas más altas o viajes más costosos, influyendo en las calificaciones globales más bajas.
+  
+Hemos modelado el destino de viaje por una multinomial. Esto puede ser útil para predecir el comportamiento de los viajeros.
+
+Hemos obtenido un modelo de regresión multivariante de la forma:
+
+  gasto_persona  = $\beta_0$ + $\beta_1$ tiempo_transporte + $\beta_2$ duracion_viaje
+    
+Considermaos que este modelo está bien ajustado (los valores de Score que obtenemos son cercanos a cero).
+
+Hemos visto que no podemos concluir que las medias del gasto por persona y el tiempo de transporte difieran significativamente entre los viajeros que viajan sólo por España y los que viajan solo por el extranjero.
+
+Esto apoya la hipótesis general de que el gasto por persona y el tiempo de transporte no varían según el destino del viaje: España o el extranjero. 
+
+### Recomendaciones
+
+Consideramos sugerencias para futuros estudios o para poíticas de turismo.
+
+Para futuros estudios, proponemos recoger información sobre el tipo de alojamiento y estudiar su relación con la calificación global y el gasto. También puede ser interesante comparar los datos entre diferentes trimestres y obersvar la estacionalidad.
+
+Para políticas de turismo, proponemos adaptar la oferta a las expecativas de viajeros de altos ingresos, dado que estos viajeros tienden a dar calificaciones más bajas. Por ejemplo, ampliar la variedad de servicios premium.
+
+### Bibliografía
+
+  - [Apuntes de la Asignatura](https://aprender-uib.github.io/AD/).
+  
+  - Ejercicios resuletos de la Asignatura.
+  
+  - Documento “Recomendaciones para escribir informes de proyectos en Estadística” del curso.
+  
