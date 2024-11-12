@@ -460,7 +460,7 @@ Si el estadístico de contraste es mayor al valor crítico, rechazamos $H_0$: la
 
 Si el estadístico de constraste no alcanza el valor crítico, no rechazamos la hipótesis nula.
 
-Como el valor del estadístico de contraste (0.106) no alcanza el valor crítico (3.099), no rechazamos $H_0$. No tenemos suficiente evidencia para afirmar que las medias de `gasto_persona` y `duracion_viaje` son significativamente diferentes entre los destinos.
+Como el valor del estadístico de contraste (0.106) no alcanza el valor crítico (3.099), no rechazamos $H_0$. No tenemos suficiente evidencia para afirmar que las medias de `gasto_persona` y `tiempo_transporte` son significativamente diferentes entre los destinos.
 
 Por otra parte, ejecutamos el contraste con la función `hostelling.test`de `R`. 
 
