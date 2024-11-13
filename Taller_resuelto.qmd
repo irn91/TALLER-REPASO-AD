@@ -389,7 +389,7 @@ Los valores de Score que obtenemos son cercanos a cero. Esto sugiere que el mode
 
 Realizamos un contraste de hipótesis de dos medias multivariante relevante para el problema.
 
-Evaluamos si el vector de medias de las variables cuantitativas de interés `gasto_persona` y `tiempo_transporte` es el mismo para dos niveles distintos de la variable no cuantitativa `destino` que hemos modelado como multinomial: viaje solo por España (`solo ESP`) y viaje solo por el estrangero (`solo extranjero`).
+Evaluamos si el vector de medias de las variables cuantitativas de interés `gasto_persona` y `tiempo_transporte` es el mismo para dos niveles distintos de la variable no cuantitativa `destino` que hemos modelado como multinomial: viaje solo por España (`solo ESP`) y viaje solo por el extranjero (`solo extranjero`).
 
 Por una parte, ejecutamos el constraste de forma teórica.
 
@@ -464,7 +464,7 @@ Como el valor del estadístico de contraste (0.106) no alcanza el valor crítico
 
 Por otra parte, ejecutamos el contraste con la función `hotelling.test` de `R`. 
 
-Evaluamos si el vector de medias de las variables cuantitativas `gasto_persona` y `tiempo_transporte` es el mismo para dos niveles distintos de la variable no cuantitativa `destino` que hemos modelado como multinomial: viaje solo por España (`solo ESP`) y viaje solo por el estrangero (`solo extranjero`).
+Evaluamos si el vector de medias de las variables cuantitativas `gasto_persona` y `tiempo_transporte` es el mismo para dos niveles distintos de la variable no cuantitativa `destino` que hemos modelado como multinomial: viaje solo por España (`solo ESP`) y viaje solo por el extranjero (`solo extranjero`).
 
 ```{r, echo=FALSE, output=FALSE}
 # Filtrar los datos para excluir 'ESP y extranjero' y preparar los datos

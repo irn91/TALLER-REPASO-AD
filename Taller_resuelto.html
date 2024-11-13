@@ -405,7 +405,7 @@ duracion_viaje    4.392462e-14</code></pre>
 <section id="contraste-de-hipótesis-de-dos-medias-multivariante" class="level3">
 <h3 class="anchored" data-anchor-id="contraste-de-hipótesis-de-dos-medias-multivariante">Contraste de hipótesis de dos medias multivariante</h3>
 <p>Realizamos un contraste de hipótesis de dos medias multivariante relevante para el problema.</p>
-<p>Evaluamos si el vector de medias de las variables cuantitativas de interés <code>gasto_persona</code> y <code>tiempo_transporte</code> es el mismo para dos niveles distintos de la variable no cuantitativa <code>destino</code> que hemos modelado como multinomial: viaje solo por España (<code>solo ESP</code>) y viaje solo por el estrangero (<code>solo extranjero</code>).</p>
+<p>Evaluamos si el vector de medias de las variables cuantitativas de interés <code>gasto_persona</code> y <code>tiempo_transporte</code> es el mismo para dos niveles distintos de la variable no cuantitativa <code>destino</code> que hemos modelado como multinomial: viaje solo por España (<code>solo ESP</code>) y viaje solo por el extranjero (<code>solo extranjero</code>).</p>
 <p>Por una parte, ejecutamos el constraste de forma teórica.</p>
 <p>Consultamos la sección <em>3.4.2. Test sobre la media: dos poblaciones</em> de los apuntes de la asignatura.</p>
 <p>Supongamos que tenemmos dos matrices de datos independientes <span class="math inline">\(X_{n_1\times p}\)</span>, <span class="math inline">\(Y_{n_2\times p}\)</span> que provienen de distribuciones <span class="math inline">\(N_p(\mu_1, \Sigma), N_p(\mu_2, \Sigma)\)</span>.</p>
@@ -428,7 +428,7 @@ H_0: \mu_1 = \mu_2
 <p>Si el estadístico de constraste no alcanza el valor crítico, no rechazamos la hipótesis nula.</p>
 <p>Como el valor del estadístico de contraste (0.106) no alcanza el valor crítico (3.099), no rechazamos <span class="math inline">\(H_0\)</span>. No tenemos suficiente evidencia para afirmar que las medias de <code>gasto_persona</code> y <code>tiempo_transporte</code> son significativamente diferentes entre los destinos.</p>
 <p>Por otra parte, ejecutamos el contraste con la función <code>hotelling.test</code> de <code>R</code>.</p>
-<p>Evaluamos si el vector de medias de las variables cuantitativas <code>gasto_persona</code> y <code>tiempo_transporte</code> es el mismo para dos niveles distintos de la variable no cuantitativa <code>destino</code> que hemos modelado como multinomial: viaje solo por España (<code>solo ESP</code>) y viaje solo por el estrangero (<code>solo extranjero</code>).</p>
+<p>Evaluamos si el vector de medias de las variables cuantitativas <code>gasto_persona</code> y <code>tiempo_transporte</code> es el mismo para dos niveles distintos de la variable no cuantitativa <code>destino</code> que hemos modelado como multinomial: viaje solo por España (<code>solo ESP</code>) y viaje solo por el extranjero (<code>solo extranjero</code>).</p>
 <p>El p-valor del test de Hotelling es de 0.8995, mayor al nivel de significancia <span class="math inline">\(\alpha = 0.05\)</span>. No hay evidencia suficiente para rechazar la hipótesis nula de que las medias multivariantes de los dos grupos son iguales. Las diferencias entre los dos grupos no son estadísticamente significativas.</p>
 </section>
 <section id="conclusiones" class="level3">
