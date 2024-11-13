@@ -154,9 +154,9 @@ Veámoslo de forma más clara. Con `ggpais`, pintemos las variables cuantitativa
 ggpairs(datos[,1:4], aes(color = datos$sexo)) +
   theme_bw()  
 ```
-En el triángulo inferior de la representación vemos los gráficos de dispersión y en el triángulo superior se indican las correlaciones. Vemos que la correlación positiva entre la duración del viaje y el tiempo de transporte se muestra en su gráfico de dispersión: a mayor duración del viaje mayor tiempo de transporte.
+En el triángulo inferior de la representación vemos los gráficos de dispersión y en el triángulo superior se indican las correlaciones. Vemos que la correlación positiva entre la duración del viaje y el tiempo de transporte se muestra en su gráfico de dispersión: el tiempo de transporte tiende a crecer cuando la duración del viaje crece.
 
-En la diagonal se muestran las distribuciones de cada variable distinguidas por sexo. Vemos una cierta diferencia entre hombres y mujeres en la duración del viaje y tiempo de transporte.
+En la diagonal principal se muestran las curvas de densidades para cada variable, distinguidas por sexo. Vemos una cierta diferencia entre hombres y mujeres en la duración del viaje y tiempo de transporte.
 
 #### Tiempo de transporte por Sexo
 
@@ -417,7 +417,7 @@ $$
 $$
 Siendo $\widehat{\mathbf{S}}=(n_1\mathbf{S}_1+n_2\mathbf{S}_2)/(n_1+n_2-2)$ la estimación centrada (insesgada) de $\Sigma$.
 
-Calculamos las medias muestrales ($\bar{x}$, $\bar{y}$), las matrices de covarianza muestrales ($S_1$, $S_2$) y la matriz $\hat{S}$.
+Calculamos las medias muestrales ($\bar{x}$, $\bar{y}$), las matrices de covarianza ($S_1$, $S_2$) y la matriz $\hat{S}$.
 
 Obtenemos el estadístico de contraste $F^p_{n_1+n_2-1-p}$ y lo comparamos con el valor crítico (usando un nivel de signifiación $\alpha = 0.05$) para decidir si rechazamos $H_0$.
 
@@ -430,11 +430,10 @@ Y <- subset(datos, destino == "solo extranjero", select = c(gasto_persona, tiemp
 n1 = nrow(X)
 n2 = nrow(Y)
 
-# Vectores de medias muestrales
+# Medias muestrales y covarianza
 mean_X <- colMeans(X)
 mean_Y <- colMeans(Y)
 
-# Matrices de covarianza muestrales
 S1 <- (n1 - 1)/n1 * cov(X)
 S2 <- (n2 - 1)/n2 * cov(Y)
 
@@ -489,7 +488,7 @@ En conclusión, recogemos los resultados  de interés de los análisis y valoram
 
 Del Análisis Descriptivo, destacamos:
 
-  - A mayor duración del viaje mayor tiempo de transporte, lo cual es razonable.
+  - El tiempo de transporte tiende a crecer cuando la duración del viaje crece, lo cual es razonable.
   
   - La duración del viaje varía con el sexo y el rango de edad: a partir de los 35 años, la mediana de la duración del viaje en noches de los hombres es mayor que la de las mujeres, y los viajes más largos corresponden principalmente a hombres de mayor edad.
   

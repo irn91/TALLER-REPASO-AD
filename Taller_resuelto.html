@@ -212,8 +212,8 @@ $ nivel_interes      &lt;ord&gt; Bajo, Bajo, Bajo, Alto, Neutro, Bajo, Neutro, N
 </div>
 </div>
 </div>
-<p>En el triángulo inferior de la representación vemos los gráficos de dispersión y en el triángulo superior se indican las correlaciones. Vemos que la correlación positiva entre la duración del viaje y el tiempo de transporte se muestra en su gráfico de dispersión: a mayor duración del viaje mayor tiempo de transporte.</p>
-<p>En la diagonal se muestran las distribuciones de cada variable distinguidas por sexo. Vemos una cierta diferencia entre hombres y mujeres en la duración del viaje y tiempo de transporte.</p>
+<p>En el triángulo inferior de la representación vemos los gráficos de dispersión y en el triángulo superior se indican las correlaciones. Vemos que la correlación positiva entre la duración del viaje y el tiempo de transporte se muestra en su gráfico de dispersión: el tiempo de transporte tiende a crecer cuando la duración del viaje crece.</p>
+<p>En la diagonal principal se muestran las curvas de densidades para cada variable, distinguidas por sexo. Vemos una cierta diferencia entre hombres y mujeres en la duración del viaje y tiempo de transporte.</p>
 </section>
 <section id="tiempo-de-transporte-por-sexo" class="level4">
 <h4 class="anchored" data-anchor-id="tiempo-de-transporte-por-sexo">Tiempo de transporte por Sexo</h4>
@@ -422,7 +422,7 @@ H_0: \mu_1 = \mu_2
 <p><span class="math display">\[
 \frac{n_1+n_2-1-p}{(n_1+n_2-2)p}\frac{n_1n_2}{n_1+n_2}(\overline{\mathbf{x}}-\overline{\mathbf{y}})'\widehat{\mathbf{S}}^{-1}(\overline{\mathbf{x}}-\overline{\mathbf{y}})\sim F^p_{n_1+n_2-1-p}
 \]</span> Siendo <span class="math inline">\(\widehat{\mathbf{S}}=(n_1\mathbf{S}_1+n_2\mathbf{S}_2)/(n_1+n_2-2)\)</span> la estimación centrada (insesgada) de <span class="math inline">\(\Sigma\)</span>.</p>
-<p>Calculamos las medias muestrales (<span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\bar{y}\)</span>), las matrices de covarianza muestrales (<span class="math inline">\(S_1\)</span>, <span class="math inline">\(S_2\)</span>) y la matriz <span class="math inline">\(\hat{S}\)</span>.</p>
+<p>Calculamos las medias muestrales (<span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\bar{y}\)</span>), las matrices de covarianza (<span class="math inline">\(S_1\)</span>, <span class="math inline">\(S_2\)</span>) y la matriz <span class="math inline">\(\hat{S}\)</span>.</p>
 <p>Obtenemos el estadístico de contraste <span class="math inline">\(F^p_{n_1+n_2-1-p}\)</span> y lo comparamos con el valor crítico (usando un nivel de signifiación <span class="math inline">\(\alpha = 0.05\)</span>) para decidir si rechazamos <span class="math inline">\(H_0\)</span>.</p>
 <p>Si el estadístico de contraste es mayor al valor crítico, rechazamos <span class="math inline">\(H_0\)</span>: las medias son diferentes para los dos destinos.</p>
 <p>Si el estadístico de constraste no alcanza el valor crítico, no rechazamos la hipótesis nula.</p>
@@ -436,7 +436,7 @@ H_0: \mu_1 = \mu_2
 <p>En conclusión, recogemos los resultados de interés de los análisis y valoramos si apoyan o refutan la hipótesis general.</p>
 <p>Del Análisis Descriptivo, destacamos:</p>
 <ul>
-<li><p>A mayor duración del viaje mayor tiempo de transporte, lo cual es razonable.</p></li>
+<li><p>El tiempo de transporte tiende a crecer cuando la duración del viaje crece, lo cual es razonable.</p></li>
 <li><p>La duración del viaje varía con el sexo y el rango de edad: a partir de los 35 años, la mediana de la duración del viaje en noches de los hombres es mayor que la de las mujeres, y los viajes más largos corresponden principalmente a hombres de mayor edad.</p></li>
 <li><p>Los viajeros con mayor ingresos del hogar tienen una calificación mediana del viaje más baja. Es posible que los viajeros con mayores ingresos del hogar tengan expectativas más altas o viajes más costosos, influyendo en las calificaciones globales más bajas.</p></li>
 </ul>
